@@ -31,13 +31,13 @@
                 <div class="layui-input-inline">
                     <label class="layui-form-label">该科成绩</label>
                     <div class="layui-input-block">
-                        <input type="text" id="input_keyword" class="layui-input" name='cj[]'>
+                        <input type="number" min=0 id="input_keyword" class="layui-input" name='cj[]'>
                     </div>
                 </div>
                 <div class="layui-input-inline">
                     <label class="layui-form-label">该科学分</label>
                     <div class="layui-input-block">
-                        <input type="text" id="input_keyword" class="layui-input" name='xf[]'>
+                        <input type="number" min=0 id="input_keyword" class="layui-input" name='xf[]'>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             num_value=null;
             num_value=data.field.number;
             for (var i=2;i<=num_value;i++){ 
-                var demo='<fieldset class="layui-elem-field" id="ff'+i+'"><legend>学科'+i+'</legend><div class="layui-field-box"><div class="layui-input-inline"><label class="layui-form-label">该科成绩</label><div class="layui-input-block"><input type="text" id="input_keyword" class="layui-input" name="cj[]"></div></div><div class="layui-input-inline"><label class="layui-form-label">该科学分</label><div class="layui-input-block"><input type="text" id="input_keyword" class="layui-input" name="xf[]"></div></div></div></fieldset>';
+                var demo='<fieldset class="layui-elem-field" id="ff'+i+'"><legend>学科'+i+'</legend><div class="layui-field-box"><div class="layui-input-inline"><label class="layui-form-label">该科成绩</label><div class="layui-input-block"><input type="number" min=0 id="input_keyword" class="layui-input" name="cj[]"></div></div><div class="layui-input-inline"><label class="layui-form-label">该科学分</label><div class="layui-input-block"><input type="number" min=0 id="input_keyword" class="layui-input" name="xf[]"></div></div></div></fieldset>';
                 document.getElementById('demo').insertAdjacentHTML("beforeEnd",demo);
             }
             form.render();
