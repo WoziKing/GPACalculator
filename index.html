@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绩点计算器1.0</title>
+    <script src="./layui/layui.js" charset="utf-8" type="text/javascript"></script>
+    <link rel="stylesheet" href="./layui/css/layui.css" type="text/css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <form class="layui-form" action="">
+        <div class="layui-input-inline">
+            <input type="number" id="input_keyword" class="layui-input" placeholder="输入学科数" name='number' min=1>
+        </div>
+          <div class="layui-input-inline" style='margin-left:20px'>
+            <button class="layui-btn" lay-submit="" lay-filter="number_btn" type="button">确认</button>
+          </div>
+    </form>
+
+
+
+    <form class="layui-form" action="">
+
+        <fieldset class="layui-elem-field" id='ff1'>
+            <legend>学科1</legend>
+            <div class="layui-field-box">
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">该科成绩</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="input_keyword" class="layui-input" name='cj[]'>
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">该科学分</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="input_keyword" class="layui-input" name='xf[]'>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div id='demo'></div>
+          <div class="layui-input-inline" style='margin-left:20px'>
+            <button class="layui-btn" lay-submit="" lay-filter="up_btn" type="button">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+      </form>
+      <p id='demo2'></p>
+
+
+
+      <br><br><br><br><br><br>
+      <p>作者：WoziKing</p>
+      <P>绩点计算器 版本：1.0  （2022-01-07）</P>
+      <P>虽然还是一个只能添加行数手动输入的版本，但基本上是够用了<br>未来要是能够导入教务处的文件进行计算那就更好了</P>
+      <a style='color:brown' href='./img.jpg'>点我助力</a>
+</body>
+
+<script>
+    layui.use('form', function(){
+      var num_value;
+      var form = layui.form;
+        form.on('submit(number_btn)', function(data){
+            var parent=document.getElementById("demo");
+            for (var i=2;i<=num_value;i++){ 
+                var son=document.getElementById("ff"+i);
+                parent.removeChild(son);
+            }
+            num_value=null;
+            num_value=data.field.number;
+            for (var i=2;i<=num_value;i++){ 
+                var demo='<fieldset class="layui-elem-field" id="ff'+i+'"><legend>学科'+i+'</legend><div class="layui-field-box"><div class="layui-input-inline"><label class="layui-form-label">该科成绩</label><div class="layui-input-block"><input type="text" id="input_keyword" class="layui-input" name="cj[]"></div></div><div class="layui-input-inline"><label class="layui-form-label">该科学分</label><div class="layui-input-block"><input type="text" id="input_keyword" class="layui-input" name="xf[]"></div></div></div></fieldset>';
+                document.getElementById('demo').insertAdjacentHTML("beforeEnd",demo);
+            }
+            form.render();
+            return false;
+
+
+        });
+    });
+    function sum(arr) {
+        var len = arr.length;
+        if(len == 0){
+            return 0;
+        } else if (len == 1){
+            return arr[0];
+        } else {
+            return arr[0] + sum(arr.slice(1));
+        }
+    }
+    layui.use('form', function(){
+                var form = layui.form;
+                form.on('submit(up_btn)', function(data){
+                    var count1=data.field;
+                    // console.log(count1);
+                    var count = Object.getOwnPropertyNames(count1).length/2;
+                    // console.log(count);
+                    // console.log(count1["cj[1]"]);
+                    var up = new Array();
+                    var bottom = new Array();
+                    for (var x=0;x<count;x++){ 
+                        console.log(count1["cj["+x+"]"]);
+                        console.log(count1["xf["+x+"]"]);
+                        up[x] = ((count1["cj["+x+"]"]-50)/10)*count1["xf["+x+"]"];
+                        bottom[x] = count1["xf["+x+"]"]-0;
+                    }
+                        console.log(up);
+                        console.log(bottom);
+                    var re=sum(up)/sum(bottom);
+                    document.getElementById("demo2").innerHTML="<div style='color:#FF0000'>"+re.toFixed(2)+"</div>";
+                    layer.msg("您的学分绩点是"+re.toFixed(2));
+                    return false;
+                });
+    });
+</script>
+
+</html>
