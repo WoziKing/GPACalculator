@@ -105,7 +105,11 @@
                     for (var x=0;x<count;x++){ 
                         console.log(count1["cj["+x+"]"]);
                         console.log(count1["xf["+x+"]"]);
-                        up[x] = ((count1["cj["+x+"]"]-50)/10)*count1["xf["+x+"]"];
+                        if(up[x]<50){
+                            up[x]=0;
+                        }else{
+                            up[x] = ((count1["cj["+x+"]"]-50)/10)*count1["xf["+x+"]"];
+                        }
                         bottom[x] = count1["xf["+x+"]"]-0;
                     }
                         console.log(up);
