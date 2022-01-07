@@ -105,12 +105,19 @@
                     for (var x=0;x<count;x++){ 
                         console.log(count1["cj["+x+"]"]);
                         console.log(count1["xf["+x+"]"]);
-                        if(up[x]<=50){
+
+                        if(Number(count1["cj["+x+"]"])<50){
                             up[x] = 0;
                         }else{
                             up[x] = ((count1["cj["+x+"]"]-50)/10)*count1["xf["+x+"]"];
                         }
+            
                         bottom[x] = count1["xf["+x+"]"]-0;
+
+                        if(bottom[x]===0){
+                            layer.msg("您的第"+Number(x+1)+"科的学分是0，无法计算");
+                            return false;
+                        }
                     }
                         console.log(up);
                         console.log(bottom);
